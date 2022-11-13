@@ -1,0 +1,12 @@
+@media (min-width: 992px) {
+  #header.home {
+    position: unset;
+  }
+}
+.not_found {
+  text-align: center;
+}
+.not_found img {
+  width: 300px;
+}
+/*# sourceMappingURL=./custom.css.map */
