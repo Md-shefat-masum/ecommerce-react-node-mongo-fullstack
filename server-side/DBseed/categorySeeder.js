@@ -36,7 +36,7 @@ const categorySeeder = async () => {
     })
 
     let result = await categoryModel.insertMany(category_lists);
-    console.log(result);
+    // console.log(result);
 }
 
 module.exports = categorySeeder;

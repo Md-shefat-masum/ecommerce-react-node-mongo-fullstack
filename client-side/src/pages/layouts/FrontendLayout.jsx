@@ -8,7 +8,7 @@ function FrontendLayout() {
         <>
             <div id="index">
                 <main>
-                    <div id="menu_wrapper" className />
+                    <div id="menu_wrapper" />
                     {/* --------------------loader------------ */}
                     {/* <div id="spin-wrapper"></div>
                     <div id="siteloader">

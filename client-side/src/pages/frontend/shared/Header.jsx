@@ -41,7 +41,7 @@ function Header() {
                             {/* --------------------desktop_logo------------ */}
                             <div id="desktop_logo">
                                 <a href="index.html">
-                                    <img className="logo img-responsive" src="assets/images/header-logo.png" alt="Demo Shop" />
+                                    <img className="logo img-responsive" src="/assets/images/header-logo.png" alt="Demo Shop" />
                                 </a>
                             </div>
                             {/* Block search  */}

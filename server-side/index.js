@@ -30,7 +30,7 @@ process.stdout.write("\n 🧊 connecting mongoDB \n");
 terminal_loader_trigger = terminal_loader_trigger();
 
 mongoose
-    .connect('mongodb+srv://baby-shop-ecom:YT6raiJHVHnxjXUR@cluster0.jztnajv.mongodb.net/baby_shop_db?retryWrites=true&w=majority')
+    .connect('mongodb+srv://baby_shop_db:a9FRjPzhmB9w0bW4@cluster0.c4sik5l.mongodb.net/?retryWrites=true&w=majority')
     .then(() => {
         terminal_loader_trigger.stop_loader();
         console.log('\033[93m', `\n ✔️  mongoose connected \n`);

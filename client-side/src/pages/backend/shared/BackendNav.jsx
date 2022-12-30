@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function BackendNav() {
     return (
         <>
-            <nav id="sidebarMenu" className="col-md-3 pt-2 col-lg-2 d-md-block bg-light sidebar">
+            <nav id="sidebarMenu" className="col-md-3 pt-2 col-lg-2 d-md-block bg-light sidebar show">
                 <div className="card">
                     <div className="card-body text-center">
                         <img src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg" className="rounded rounded-circle img-thumbnail" alt="" style={{ width: '70px' }} />
