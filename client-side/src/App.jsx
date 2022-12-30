@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthContextProvider from "./contexts/AuthContext";
+import FrontendContextProvider from "./contexts/FrontendContext";
 import SettingContextProvider from "./contexts/SettingContext";
 import { AuthForgetPassword, AuthLogin, AuthRegister } from "./pages/auth/AuthPageList";
 
@@ -19,7 +20,11 @@ function App() {
             <AuthContextProvider>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<FrontendLayout />}>
+                        <Route path="/" element={
+                            <FrontendContextProvider>
+                                <FrontendLayout />
+                            </FrontendContextProvider>
+                        }>
                             <Route index element={<FrontendHome />} />
                             <Route path="products" element={<FrontendAllProducts />} />
                             <Route path="product-details" element={<FrontendProductDetails />} />
