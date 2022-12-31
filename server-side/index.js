@@ -26,7 +26,7 @@ app.use('/api/product', productRouter);
 
 
 let terminal_loader_trigger = require('./hooks/teminal_loader');
-process.stdout.write("\n 🧊 connecting mongoDB \n");
+process.stdout.write("\n 🧊 connecting mongoDB  \n");
 terminal_loader_trigger = terminal_loader_trigger();
 
 mongoose
