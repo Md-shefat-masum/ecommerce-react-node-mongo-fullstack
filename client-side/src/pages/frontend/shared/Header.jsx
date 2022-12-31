@@ -1,7 +1,11 @@
 import React from 'react'
+import useFrontendContext from '../../../hooks/useFrontendContext';
 import Nav from './Nav'
+import resourceLink from '../../../hooks/resourceLink'
 
 function Header() {
+    const { state, dispatch } = useFrontendContext();
+    const { carts, total_cart_amount } = state;
     return (
         <>
             {/* --------------------header------------ */}
@@ -74,152 +78,69 @@ function Header() {
                                     <div className="header">
                                         <span className="cart-link">
                                             <span className="cart-img hidden-md-down hidden-sm-down hidden-xs-down">
-                                                <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
-                                                    <symbol id="shopping-cart-empty-side-view" viewBox="0 0 790 790">
-                                                        <title>shopping-cart-empty-side-view</title>
-                                                        <path d="M342.3,137.978H385l-63.3-108.6c-5.1-8.8-16.4-11.8-25.2-6.6c-8.8,5.1-11.8,16.4-6.6,25.2L342.3,137.978z" />
-                                                        <path d="M197.4,47.978c5.1-8.8,2.2-20.1-6.6-25.2s-20.1-2.2-25.2,6.6l-63.3,108.7H145L197.4,47.978z" />
-                                                        <path d="M455.7,171.278H31.3c-17.3,0-31.3,14-31.3,31.3v34.7c0,17.3,14,31.3,31.3,31.3h9.8l30.2,163.7 c3.8,19.3,21.4,34.6,39.7,34.6h12h78.8c8,0,18.4,0,29,0l0,0h9.6h9.6l0,0c10.6,0,21,0,29,0h78.8h12c18.3,0,35.9-15.3,39.7-34.6 l30.4-163.8h15.9c17.3,0,31.3-14,31.3-31.3v-34.7C487,185.278,473,171.278,455.7,171.278z M172.8,334.878v70.6 c0,10.1-8.2,17.7-17.7,17.7c-10.1,0-17.7-8.2-17.7-17.7v-29.6v-69.4c0-10.1,8.2-17.7,17.7-17.7c10.1,0,17.7,8.2,17.7,17.7V334.878 z M229.6,334.878v70.6c0,10.1-8.2,17.7-17.7,17.7c-10.1,0-17.7-8.2-17.7-17.7v-29.6v-69.4c0-10.1,8.2-17.7,17.7-17.7 s17.7,8.2,17.7,17.7V334.878z M286.7,375.878v29.6c0,9.5-7.6,17.7-17.7,17.7c-9.5,0-17.7-7.6-17.7-17.7v-70.6v-28.4 c0-9.5,8.2-17.7,17.7-17.7s17.7,7.6,17.7,17.7V375.878z M343.5,375.878v29.6c0,9.5-7.6,17.7-17.7,17.7c-9.5,0-17.7-7.6-17.7-17.7 v-70.6v-28.4c0-9.5,7.6-17.7,17.7-17.7c9.5,0,17.7,7.6,17.7,17.7V375.878z" />
-                                                    </symbol>
-                                                </svg>
+
                                                 <svg className="icon" viewBox="0 0 30 30">
                                                     <use xlinkHref="#shopping-cart-empty-side-view" x="20%" y="20%" />
                                                 </svg>
                                             </span>
                                             <span className="cart-img hidden-lg-up">
-                                                <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
-                                                    <symbol id="shopping-cart" viewBox="0 0 880 880">
-                                                        <title>shopping-cart</title>
-                                                        <path d="M194.59,382.711c-35.646,0-64.646,29-64.646,64.646s29,64.646,64.646,64.646c35.646,0,64.646-29,64.646-64.646
-                                S230.235,382.711,194.59,382.711z M194.59,473.215c-14.261,0-25.858-11.597-25.858-25.858c0-14.261,11.597-25.858,25.858-25.858
-                                c14.254,0,25.858,11.597,25.858,25.858C220.448,461.617,208.851,473.215,194.59,473.215z" />
-                                                        <path d="M385.941,382.711c-35.646,0-64.646,29-64.646,64.646s29,64.646,64.646,64.646c35.646,0,64.646-29,64.646-64.646
-                                S421.587,382.711,385.941,382.711z M385.941,473.215c-14.261,0-25.858-11.597-25.858-25.858
-                                c0-14.261,11.597-25.858,25.858-25.858c14.261,0,25.858,11.597,25.858,25.858C411.799,461.617,400.202,473.215,385.941,473.215z" />
-                                                        <path d="M498.088,126.274c-3.685-4.629-9.27-7.324-15.179-7.324H143.326l-17.629-89.095c-1.545-7.803-7.699-13.873-15.528-15.308
-                                L32.594,0.325C22.038-1.621,11.953,5.368,10.02,15.905s5.042,20.641,15.58,22.574l64.607,11.843l56.914,287.667
-                                c1.797,9.083,9.768,15.631,19.025,15.631h271.512c9.031,0,16.86-6.225,18.896-15.037l45.252-195.876
-                                C503.137,136.947,501.767,130.896,498.088,126.274z M422.233,314.833H182.074l-31.075-157.089h307.519L422.233,314.833z" />
-                                                    </symbol>
-                                                </svg>
                                                 <svg className="icon" viewBox="0 0 40 40">
                                                     <use xlinkHref="#shopping-cart" x="18%" y="22%" />
                                                 </svg>
                                             </span>
                                             <span className="cart-content">
-                                                <span className="cart-name"><span style={{ textTransform: 'uppercase' }}>Cart</span> 3 items</span>
-                                                <span className="cart-products-count hidden-lg-up">3</span>
+                                                <span className="cart-name">
+                                                    <span style={{ textTransform: 'uppercase' }}>Cart</span>
+                                                    {carts.length} items
+                                                </span>
+                                                <span className="cart-products-count hidden-lg-up">
+                                                    {carts.length}
+                                                </span>
                                             </span>
                                         </span>
                                         <div className="cart-dropdown">
                                             <div className="product-container">
-                                                <div className="product">
-                                                    <a className="product-image" href="#">
-                                                        <img src="assets/images/product/1.jpg" alt="Simul dolorem voluptaria" />
-                                                    </a>
-                                                    <div className="product-detail">
-                                                        <div className="product-name">
-                                                            <span className="quantity-formated">
-                                                                <span className="quantity">1</span>
-                                                                &nbsp;x&nbsp;
-                                                            </span>
-                                                            <a className="cart_block_product_name" href="#">Simul dolorem voluptaria</a>
+                                                {
+                                                    carts.map((product, index) => {
+                                                        return <div key={index} className="product">
+                                                            <a className="product-image" href="#">
+                                                                <img src={resourceLink(product.thumb_image)} alt="Simul dolorem voluptaria" />
+                                                            </a>
+                                                            <div className="product-detail">
+                                                                <div className="price">
+                                                                    <a className="cart_block_product_name" href="#">
+                                                                        {product.title}
+                                                                    </a>
+                                                                </div>
+                                                                <div className="product-name">
+                                                                    <span className="quantity-formated">
+                                                                        <span className="quantity">
+                                                                            {product.qty}
+                                                                        </span>
+                                                                        &nbsp;x&nbsp;
+                                                                        ${product.discount_price || product.price}
+                                                                        =
+                                                                        ${product.qty * (product.discount_price || product.price)}
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                            <div className="remove-product">
+                                                                <a className="remove-from-cart"
+                                                                    onClick={() => dispatch({ fn: null, type: 'removeCart', payload: { index } })}
+                                                                    rel="nofollow" href="#">
+                                                                    <i className="material-icons">delete</i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                        <div className="price">$16.51</div>
-                                                        <ul className="product-atributes">
-                                                            <li className="atributes">
-                                                                <span className="label">Size:</span>
-                                                                <span className="value">S</span>
-                                                            </li>
-                                                            <li className="atributes">
-                                                                <span className="label">Color:</span>
-                                                                <span className="value">Orange</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="remove-product">
-                                                        <a className="remove-from-cart" rel="nofollow" href="#">
-                                                            <i className="material-icons">delete</i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div className="product">
-                                                    <a className="product-image" href="#">
-                                                        <img src="assets/images/product/3.jpg" alt="Omnis dicam mentitum" />
-                                                    </a>
-                                                    <div className="product-detail">
-                                                        <div className="product-name">
-                                                            <span className="quantity-formated">
-                                                                <span className="quantity">1</span>
-                                                                &nbsp;x&nbsp;
-                                                            </span>
-                                                            <a className="cart_block_product_name" href="#">Omnis dicam mentitum</a>
-                                                        </div>
-                                                        <div className="price">$25.99</div>
-                                                        <ul className="product-atributes">
-                                                            <li className="atributes">
-                                                                <span className="label">Size:</span>
-                                                                <span className="value">S</span>
-                                                            </li>
-                                                            <li className="atributes">
-                                                                <span className="label">Color:</span>
-                                                                <span className="value">Orange</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="remove-product">
-                                                        <a className="remove-from-cart" rel="nofollow" href="#">
-                                                            <i className="material-icons">delete</i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div className="product">
-                                                    <a className="product-image" href="#">
-                                                        <img src="assets/images/product/5.jpg" alt="Eled doming deserunt" />
-                                                    </a>
-                                                    <div className="product-detail">
-                                                        <div className="product-name">
-                                                            <span className="quantity-formated">
-                                                                <span className="quantity">1</span>
-                                                                &nbsp;x&nbsp;
-                                                            </span>
-                                                            <a className="cart_block_product_name" href="#">Eled doming deserunt</a>
-                                                        </div>
-                                                        <div className="price">$28.98</div>
-                                                        <ul className="product-atributes">
-                                                            <li className="atributes">
-                                                                <span className="label">Size:</span>
-                                                                <span className="value">S</span>
-                                                            </li>
-                                                            <li className="atributes">
-                                                                <span className="label">Color:</span>
-                                                                <span className="value">Yellow</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="remove-product">
-                                                        <a className="remove-from-cart" rel="nofollow" href="#">
-                                                            <i className="material-icons">delete</i>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                                    })
+                                                }
+
                                             </div>
                                             <div className="billing-info">
-                                                <div className="billing subtotal-info">
-                                                    <span className="label">Subtotal</span>
-                                                    <span className="value">$71.48</span>
-                                                </div>
-                                                <div className="billing shipping-info">
-                                                    <span className="label">Shipping</span>
-                                                    <span className="value">$7.00</span>
-                                                </div>
-                                                <div className="billing tax-info">
-                                                    <span className="label">Taxes</span>
-                                                    <span className="value">$0.00</span>
-                                                </div>
                                                 <div className="billing total-info">
                                                     <span className="label">Total</span>
-                                                    <span className="value">$78.48</span>
+                                                    <span className="value">${total_cart_amount}</span>
                                                 </div>
                                             </div>
                                             <div className="cart-btn col-xs-12">

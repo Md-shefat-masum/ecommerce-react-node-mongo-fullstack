@@ -1,30 +1,16 @@
-import React, { useCallback } from 'react'
-import { useEffect } from 'react'
+import React from 'react'
 import { Outlet } from 'react-router-dom'
 import useFrontendContext from '../../hooks/useFrontendContext'
 import Footer from '../frontend/shared/Footer'
 import Header from '../frontend/shared/Header'
 
 function FrontendLayout() {
-    const { frontend, dispatchFrontend } = useFrontendContext();
-    // useEffect(() => {
-    //     // console.log(frontend);
-    // }, [frontend])
-
-    useCallback(
-        () => {
-            console.log(frontend);
-        },
-        [frontend.count],
-    )
-
-
+    const { state, dispatch } = useFrontendContext();
+    console.log(state);
+    
     return (
         <>
             <div id="index">
-                <h1>{frontend.count}</h1>
-                <button onClick={() => dispatchFrontend({ type: 'async', fn:'asyncInc', payload:{id:100} })}>inc</button>
-                <button onClick={() => dispatchFrontend({ type: 'decrement', payload:{name: 'try'} })}>dec</button>
                 <main>
                     <div id="menu_wrapper" />
                     {/* --------------------loader------------ */}

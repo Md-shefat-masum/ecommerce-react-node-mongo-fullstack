@@ -89,7 +89,7 @@ const productSeeder = async () => {
             "price": price,
             "discount": (i + 1),
             "discount_price": parseInt(price - ((price * (i + 1)) / 100)),
-            "discount_date": "1672444800000",
+            "discount_date": "1572444800000",
             "thumb_image": `uploads/products/${i + 1}.jpg`,
             "related_image": [
                 `uploads/products/${parseInt(Math.random() * (20 - 1) + 1)}.jpg`,

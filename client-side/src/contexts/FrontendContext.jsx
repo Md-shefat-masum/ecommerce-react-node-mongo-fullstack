@@ -1,56 +1,75 @@
-import React, { useCallback, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import { createContext } from 'react'
 
-const fakeApi = (params) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(params)
-        }, 2000);
-    })
+const saveCart = (dispatch, type, payload) => {
+    fetch('http://localhost:5001/test')
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            dispatch({ type, payload })
+        })
 }
 
-const asyncInc = async (dispatch, params) => {
-    let data = await fakeApi(params);
-    dispatch({ type: 'increment', payload: data })
-}
+const reducers = (state, { type, payload }) => {
+    let tempState = { ...state };
+    let { carts, total_cart_amount, wishList, showAlert, showModal } = tempState;
 
-const initialState = { count: 0 };
-function reducer(state, action) {
-    switch (action.type) {
-        case 'increment':
-            console.log(action.payload);
-            return { count: state.count + 1 };
-        case 'decrement':
-            console.log(action.payload);
-            return { count: state.count - 1 };
-        case 'reset':
-            return { count: 0 };
+    switch (type) {
+        case 'insertCart':
+            const { _id, price, discount_price, title, thumb_image } = payload.product;
+            let qty = 1;
+
+            let product = carts.find(i => i._id == _id);
+            product ? qty = product.qty++ : qty = 1;
+
+            !product &&
+                carts.unshift({ _id, price, discount_price, title, thumb_image, qty });
+
+            tempState.total_cart_amount = carts.reduce((total, i) => {
+                return i.discount_price ? total += i.discount_price * i.qty : total += i.price * i.qty;
+            }, 0)
+
+            window.s_alert('product added to cart list');
+            return tempState
+
+        case 'removeCart':
+            carts.splice(payload.index, 1);
+            tempState.total_cart_amount = carts.reduce((total, i) => {
+                return i.discount_price ? total += i.discount_price * i.qty : total += i.price * i.qty;
+            }, 0)
+            return tempState
+
+        case 'toggleAlert':
+            tempState.showAlert = !showAlert;
+            return tempState
+
         default:
-            throw new Error();
+            return state;
     }
 }
 
+
 export const FrontendContext = createContext({});
 function FrontendContextProvider({ children }) {
-    const [frontend, dispatchFrontend] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(reducers, {
+        carts: [],
+        total_cart_amount: 0,
+        wishList: [],
+        showAlert: false,
+        showModal: false,
+    })
 
-    const thunkDispatch = useCallback(
-        (action) => {
-            // console.log(action);
-            if (action.type === 'async') {
-                return eval(action.fn)(dispatchFrontend, action.payload || {});
-            } else {
-                dispatchFrontend({
-                    type: action.type,
-                    payload: action.payload || {},
-                })
-            }
-        },
-        []
-    );
-    
+    const thunkDispatch = ({ fn, type, payload }) => {
+        if (fn == 'async') {
+            console.log('async called', payload);
+            eval(payload.method)(dispatch, type, payload)
+        } else {
+            dispatch({ type, payload })
+        }
+    }
+
     return (
-        <FrontendContext.Provider value={{ frontend, dispatchFrontend: thunkDispatch }}>
+        <FrontendContext.Provider value={{ state, dispatch: thunkDispatch }}>
             {children}
         </FrontendContext.Provider>
     )

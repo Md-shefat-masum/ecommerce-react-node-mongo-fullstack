@@ -6,6 +6,8 @@ const {
     check
 } = require('express-validator');
 
+router.get('/list', productController.allProduct)
+
 router.use(authMiddleWare);
 router.get('/all', productController.allProduct)
 

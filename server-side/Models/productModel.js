@@ -9,7 +9,7 @@ const productSchema = mongoose.Schema({
         // type: 'string',
         required: true,
         type: mongoose.Types.ObjectId,
-        ref: 'categoryModel'
+        ref: 'category'
     },
     price: {
         required: true,
@@ -45,7 +45,7 @@ const productSchema = mongoose.Schema({
     creator: {
         // type: 'string',
         type: mongoose.Types.ObjectId,
-        ref: 'userModel',
+        ref: 'user',
     },
 
 }, {

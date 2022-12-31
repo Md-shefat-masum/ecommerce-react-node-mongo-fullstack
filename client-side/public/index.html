@@ -11,12 +11,34 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
   <link href="/assets/css/bootstrap.css" rel="stylesheet">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="/backend/dashboard.css">
   <link href="/assets/css/theme.css" rel="stylesheet">
   <link rel="stylesheet" href="/less/custom.css">
   <title>ToyTown</title>
+  <script>
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    window.s_alert = function ( title = 'successfully done', icon = 'success') {
+      Toast.fire({
+        icon,
+        title
+      })
+    }
+  </script>
 </head>
 
 <body>
