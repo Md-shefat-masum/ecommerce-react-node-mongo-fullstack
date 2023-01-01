@@ -12,8 +12,9 @@ const saveCart = (dispatch, type, payload) => {
         method: "POST",
         headers: {
             Authorization: 'Bearer ' + localStorage.token,
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ a: 343, b: 4335 }),
+        body: JSON.stringify({ a: 3433, b: 4335 }),
         // body: formData,
     })
         .then(res => res.json())
