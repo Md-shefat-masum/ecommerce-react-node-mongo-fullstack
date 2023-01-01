@@ -2,6 +2,7 @@ import React from 'react'
 import useFrontendContext from '../../../hooks/useFrontendContext';
 import Nav from './Nav'
 import resourceLink from '../../../hooks/resourceLink'
+import { Link } from 'react-router-dom';
 
 function Header() {
     const { state, dispatch } = useFrontendContext();
@@ -144,6 +145,7 @@ function Header() {
                                                 </div>
                                             </div>
                                             <div className="cart-btn col-xs-12">
+                                                <Link to={'cart'} className="btn btn-primary checkout">Carts</Link>
                                                 <a href="checkoutpage.html" className="btn btn-primary checkout">Checkout</a>
                                             </div>
                                         </div>

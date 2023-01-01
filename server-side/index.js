@@ -9,9 +9,13 @@ const formData = require('express-form-data');
 const userRouter = require('./routers/user-router');
 const productRouter = require('./routers/product-router');
 const categoryRouter = require('./routers/category-router');
+const cartRouter = require('./routers/cart-router');
 
 app.set('json spaces', 4);
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json({
+    limit: '50mb',
+    type: 'application/*+json',
+}));
 app.use(bodyParser.urlencoded({
     limit: '50mb', 
     extended: false
@@ -23,6 +27,7 @@ app.use('/uploads', express.static('uploads'))
 app.use('/api/user', userRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
+app.use('/api/cart', cartRouter);
 
 
 let terminal_loader_trigger = require('./hooks/teminal_loader');

@@ -9,4 +9,12 @@
 .not_found img {
   width: 300px;
 }
+.table th,
+.table td {
+  vertical-align: middle;
+}
+table tr th,
+table tr td {
+  vertical-align: middle;
+}
 /*# sourceMappingURL=./custom.css.map */
