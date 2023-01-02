@@ -4,7 +4,7 @@ const {
 const cartModel = require('../Models/cartModel');
 
 const allCart = async (req, res, next) => {
-    let carts = await CartModel.find()
+    let carts = await cartModel.find()
         .populate('user_id')
         .populate('product_id');;
     return res.status(200).json(carts);
@@ -21,23 +21,25 @@ async function createCart(req, res, next) {
     }
 
     const {carts} = req.body;
-    console.log(carts, req.body);
+    console.log(carts);
 
-    // let newCarts = await CartModel.insertMany(carts);
+    await cartModel.deleteMany({user_id: req.userData._id})
+    let newCarts = await cartModel.insertMany(carts);
+
     // let newCart = await new CartModel({
     //     title,
     //     parent,
     //     creator: req.userData._id,
     // }).save();
 
-    res.status(201).json('newCarts')
+    res.status(201).json(newCarts)
 }
 
 const getCart = async (req, res, next) => {
     let {
         id
     } = req.params;
-    let Cart = await CartModel.findOne({
+    let Cart = await cartModel.findOne({
             _id: id
         })
         .populate('parent')
@@ -51,7 +53,7 @@ const updateCart = async (req, res, next) => {
         title,
         parent,
     } = req.body;
-    let Cart = await CartModel.updateOne({
+    let Cart = await cartModel.updateOne({
         _id: id
     }, {
         title,
@@ -65,7 +67,7 @@ const deleteCart = async (req, res, next) => {
         id
     } = req.body;
 
-    let Cart = await CartModel.deleteOne({
+    let Cart = await cartModel.deleteOne({
         _id: id
     });
 

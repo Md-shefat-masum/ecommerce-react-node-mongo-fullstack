@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const bannerSchema = mongoose.Schema({
+const cartSchema = mongoose.Schema({
     product_id: {
         type: mongoose.Types.ObjectId,
         required: false,
@@ -9,8 +9,12 @@ const bannerSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: false,
     },
+    discount: {
+        required: false,
+        type: 'number',
+    },
     discount_price: {
-        required: true,
+        required: false,
         type: 'number',
     },
     price: {
@@ -27,5 +31,5 @@ const bannerSchema = mongoose.Schema({
     }, 
 })
 
-const bannerModel = mongoose.model('banner', bannerSchema);
-module.exports = bannerModel;
+const cartModel = mongoose.model('cart', cartSchema);
+module.exports = cartModel;

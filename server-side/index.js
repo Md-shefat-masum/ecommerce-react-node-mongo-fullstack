@@ -14,7 +14,6 @@ const cartRouter = require('./routers/cart-router');
 app.set('json spaces', 4);
 app.use(bodyParser.json({
     limit: '50mb',
-    type: 'application/*+json',
 }));
 app.use(bodyParser.urlencoded({
     limit: '50mb', 

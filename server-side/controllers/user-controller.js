@@ -166,6 +166,7 @@ async function checkUser(req, res, next) {
     id = req.userData._id;
     let user = await userModel.findById(id);
     return res.status(200).json({
+        user_id: user._id,
         username: user.username,
         email: user.email,
         role: user.role,
