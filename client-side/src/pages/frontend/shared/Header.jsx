@@ -3,6 +3,7 @@ import useFrontendContext from '../../../hooks/useFrontendContext';
 import Nav from './Nav'
 import resourceLink from '../../../hooks/resourceLink'
 import { Link } from 'react-router-dom';
+import { IsAuth } from '../../../hooks/UseAuth';
 
 function Header() {
     const { state, dispatch } = useFrontendContext();
@@ -127,11 +128,22 @@ function Header() {
                                                                 </div>
                                                             </div>
                                                             <div className="remove-product">
-                                                                <a className="remove-from-cart"
-                                                                    onClick={() => dispatch({ fn: null, type: 'removeCart', payload: { index } })}
-                                                                    rel="nofollow" href="#">
-                                                                    <i className="material-icons">delete</i>
-                                                                </a>
+                                                                {
+                                                                    IsAuth() ?
+                                                                        <a className="remove-from-cart"
+                                                                            onClick={() => dispatch({
+                                                                                fn: 'async', type: 'removeCart', payload: { method: 'saveCart', index }
+                                                                            })}
+                                                                            rel="nofollow" href="#">
+                                                                            <i className="material-icons">delete</i>
+                                                                        </a>
+                                                                        :
+                                                                        <a className="remove-from-cart"
+                                                                            onClick={() => dispatch({ fn: null, type: 'removeCart', payload: { index } })}
+                                                                            rel="nofollow" href="#">
+                                                                            <i className="material-icons">delete</i>
+                                                                        </a>
+                                                                }
                                                             </div>
                                                         </div>
                                                     })

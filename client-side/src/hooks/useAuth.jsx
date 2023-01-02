@@ -1,23 +1,27 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext'
 
-function useAuth() {
-    const [authStatus, setAuthStatus] = useState(false);
+export const IsAuth = () => window.localStorage.getItem('token');
 
-    function login() {
-        setAuthStatus(true);
-        console.log('login');
-    }
+function UseAuth() {
+    return useContext(AuthContext);
+    // const [authStatus, setAuthStatus] = useState(false);
 
-    function logout() {
-        setAuthStatus(false);
-        console.log('logout');
-    }
+    // function login() {
+    //     setAuthStatus(true);
+    //     console.log('login');
+    // }
 
-    return {
-        authStatus, 
-        logout,
-        login,
-    }
+    // function logout() {
+    //     setAuthStatus(false);
+    //     console.log('logout');
+    // }
+
+    // return {
+    //     authStatus, 
+    //     logout,
+    //     login,
+    // }
 }
 
-export default useAuth
+export default UseAuth

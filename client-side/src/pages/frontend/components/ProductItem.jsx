@@ -1,5 +1,6 @@
 import React from 'react'
 import resourceLink from '../../../hooks/resourceLink'
+import { IsAuth } from '../../../hooks/UseAuth';
 import useFrontendContext from '../../../hooks/useFrontendContext'
 
 function ProductItem({ product, index }) {
@@ -42,20 +43,27 @@ function ProductItem({ product, index }) {
                         <div className="price">
                             {
                                 product.discount ?
-                                <div>
-                                    <span className="regular price-old">${product.price}</span>
-                                    <span className="price-discount">{product.discount}%</span>
-                                    <span className="price-sale">${product.discount_price} </span>
-                                </div>
-                                :
-                                <div>
-                                    <span className="price-sale">${product.price} </span>
-                                </div>
+                                    <div>
+                                        <span className="regular price-old">${product.price}</span>
+                                        <span className="price-discount">{product.discount}%</span>
+                                        <span className="price-sale">${product.discount_price} </span>
+                                    </div>
+                                    :
+                                    <div>
+                                        <span className="price-sale">${product.price} </span>
+                                    </div>
                             }
                             <div className='text-right'>
-                                <button onClick={() => dispatch({ fn: null, type: 'insertCart', payload: { product } })} className='btn btn-success'>
-                                    <i className='fa fa-shopping-cart'></i>
-                                </button>
+                                {
+                                    IsAuth() ?
+                                        <button onClick={() => dispatch({ fn: 'async', type: 'insertCart', payload: { method: 'saveCart', product } })} className='btn btn-success'>
+                                            <i className='fa fa-shopping-cart'></i>
+                                        </button>
+                                        :
+                                        <button onClick={() => dispatch({ fn: null, type: 'insertCart', payload: { product } })} className='btn btn-success'>
+                                            <i className='fa fa-shopping-cart'></i>
+                                        </button>
+                                }
                             </div>
                         </div>
                         {/* <div className="btn-cart">

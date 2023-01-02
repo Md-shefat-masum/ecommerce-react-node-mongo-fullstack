@@ -9,6 +9,11 @@ const httpRequest = async (url, method="GET", body, header = null) => {
     if(header){
         headers = {...headers, ...header};
     }
+    let chekInstaceOfBody = body instanceof FormData; 
+    if(body && chekInstaceOfBody === false){
+        headers['Content-Type'] = "application/json";
+        body = JSON.stringify(body);
+    }
     const request = await fetch(`${urlBase}${url}`, {
         method,
         headers,

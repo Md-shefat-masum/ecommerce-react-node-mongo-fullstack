@@ -4,17 +4,7 @@ import httpRequest from '../hooks/httpRequest';
 export const AuthContext = createContext(null);
 
 function AuthContextProvider({ children }) {
-    const [data, setData] = useState({
-        first_name: 'mr kalam',
-        last_name: 'khan',
-    })
-
     const [checkAuth, setCheckAuth] = useState(false)
-
-    function change_data(property, value) {
-        data[property] = value;
-        setData({ ...data });
-    }
 
     async function chek_user(params) {
         let res = await httpRequest('/user/check-user');
@@ -24,11 +14,13 @@ function AuthContextProvider({ children }) {
                 isAuth: true,
                 token: window.localStorage.getItem('token'),
                 data: {
+                    user_id: res.data.user_id,
                     email: res.data.email,
                     username: res.data.username,
                     role: res.data.role,
                 }
             })
+            window.localStorage.setItem('user_id',res.data.user_id);
         }else{
             setCheckAuth(false)
         }
@@ -45,8 +37,7 @@ function AuthContextProvider({ children }) {
     
 
     const value = {
-        data,
-        change_data,
+        data: checkAuth.data,
         checkAuth, 
         setCheckAuth,
         logout

@@ -4,47 +4,33 @@ import httpRequest from '../hooks/httpRequest';
 import UseLocalStorageGet from '../hooks/UseLocalStorageGet';
 import UseLocalStorageSet from '../hooks/UseLocalStorageSet';
 
-const saveCart = (dispatch, type, payload) => {
-    console.log(payload, type);
-    let formData = new FormData();
-    formData.append('data', JSON.stringify({ a: 'asdfs' }))
-    fetch('http://localhost:5001/api/cart/create', {
-        method: "POST",
-        headers: {
-            Authorization: 'Bearer ' + localStorage.token,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ a: 3433, b: 4335 }),
-        // body: formData,
-    })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res);
+const saveCart = async (dispatch, type, payload) => {
+    await dispatch({ type, payload })
+    httpRequest('/cart/create', 'POST', { carts: UseLocalStorageGet('carts') })
+        .then(({ status }) => {
+            status === 200 &&
+                console.log('server cart updated');
         })
-    // httpRequest('/cart/create','POST',{a:23})
-    //     .then(res => {
-    //         console.log(res);
-    //         // dispatch({ type, payload })
-    //     })
 }
 
 const reducers = (state, { type, payload }) => {
     let tempState = { ...state };
     let { carts, total_cart_amount, wishList, showAlert, showModal } = tempState;
+    let user_id = window.localStorage.getItem('user_id');
 
     switch (type) {
         case 'loadCart':
-            tempState.carts = UseLocalStorageGet('carts');
+            tempState.carts = UseLocalStorageGet('carts') || [];
             return tempState;
         case 'insertCart':
-            const { _id, price, discount_price, title, thumb_image } = payload.product;
+            const { _id, price, discount, discount_price, title, thumb_image } = payload.product;
             let qty = 1;
 
-            let product = carts.find(i => i._id == _id);
+            let product = carts.find(i => i.product_id == _id);
             product ? qty = product.qty++ : qty = 1;
 
             !product &&
-                carts.unshift({ product_id: _id, price, discount_price, title, thumb_image, qty });
+                carts.unshift({ user_id, product_id: _id, price, discount, discount_price, title, thumb_image, qty });
 
             tempState.total_cart_amount = carts.reduce((total, i) => {
                 return i.discount_price ? total += i.discount_price * i.qty : total += i.price * i.qty;
@@ -97,7 +83,6 @@ function FrontendContextProvider({ children }) {
 
     const thunkDispatch = ({ fn, type, payload }) => {
         if (fn == 'async') {
-            console.log('async called', payload);
             eval(payload.method)(dispatch, type, payload)
         } else {
             dispatch({ type, payload })

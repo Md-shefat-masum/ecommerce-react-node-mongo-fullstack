@@ -1,5 +1,6 @@
 import React from 'react'
 import resourceLink from '../../hooks/resourceLink';
+import { IsAuth } from '../../hooks/UseAuth';
 import useFrontendContext from '../../hooks/useFrontendContext';
 
 function Cart() {
@@ -25,10 +26,20 @@ function Cart() {
                                     return <tr key={index}>
                                         <td width={120}>
                                             <a className='text-info m-1' href="">Details</a>
-                                            <a
-                                                className='text-danger m-1'
-                                                onClick={() => dispatch({ fn: null, type: 'removeCart', payload: { index } })}
-                                                href="#/">Remove</a>
+                                            {
+                                                IsAuth() ?
+                                                    <a
+                                                        className='text-danger m-1'
+                                                        onClick={() => dispatch({ 
+                                                            fn: 'async', type: 'removeCart', payload: {method: 'saveCart', index } 
+                                                        })}
+                                                        href="#/">Remove</a>
+                                                    :
+                                                    <a
+                                                        className='text-danger m-1'
+                                                        onClick={() => dispatch({ fn: null, type: 'removeCart', payload: { index } })}
+                                                        href="#/">Remove</a>
+                                            }
                                         </td>
                                         <td className='d-flex flex-wrap align-items-center' style={{ gap: 10 }}>
                                             <img width={100} src={resourceLink(product.thumb_image)} alt="Simul dolorem voluptaria" />
@@ -38,17 +49,30 @@ function Cart() {
                                             ${product.discount_price || product.price}
                                         </td>
                                         <td width={120}>
-                                            <input
-                                                onChange={(e) => dispatch({
-                                                    fn: null, type: "update_cart_qty", payload: {
-                                                        product,
-                                                        index,
-                                                        qty: +e.target.value
-                                                    }
-                                                })}
-                                                className='form-control'
-                                                type="number"
-                                                min={1} defaultValue={product.qty} />
+                                            {
+                                                IsAuth() ?
+                                                    <input
+                                                        onChange={(e) => dispatch({
+                                                            fn: 'async',
+                                                            type: 'update_cart_qty',
+                                                            payload: { method: 'saveCart', product, index, qty: +e.target.value }
+                                                        })}
+                                                        className='form-control'
+                                                        type="number"
+                                                        min={1} defaultValue={product.qty} />
+                                                    :
+                                                    <input
+                                                        onChange={(e) => dispatch({
+                                                            fn: null, type: "update_cart_qty", payload: {
+                                                                product,
+                                                                index,
+                                                                qty: +e.target.value
+                                                            }
+                                                        })}
+                                                        className='form-control'
+                                                        type="number"
+                                                        min={1} defaultValue={product.qty} />
+                                            }
                                         </td>
                                         <td className='text-right'>
                                             ${product.qty * (product.discount_price || product.price)}

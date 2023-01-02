@@ -9,13 +9,7 @@ function FrontendLayout() {
     const { state, dispatch } = useFrontendContext();
     useEffect(() => {
         dispatch({ fn: null, type: 'loadCart', payload: null });
-
     }, [])
-    useEffect(() => {
-        console.log(state);
-        dispatch({ fn: 'async', type: '', payload: {method: 'saveCart', carts: state.carts} });
-    }, [state])
-
 
     return (
         <>
